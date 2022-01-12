@@ -6,7 +6,7 @@ export default function Bithumb(){
     useEffect(() => {
         (async() => {
           const bithumbCoins = await (
-            await fetch('https://api.bithumb.com/public/ticker/ALL/KRW')
+            await fetch('https://api.bithumb.com/public/ticker/ALL_KRW')
           ).json();
     
           let coins = [];
