@@ -5,7 +5,9 @@ export default function NavBar(){
     const router = useRouter();
   return (
         <nav>
-        <img src="/bitcoin.svg" />
+        <Link href="/">
+            <img src="/bitcoin.svg" />
+        </Link>
         <div>
             <Link href="/">
                 <a className={router.pathname === "/" ? "active" : ""}>Home</a>
@@ -18,6 +20,12 @@ export default function NavBar(){
             </Link>
             <Link href="/trade/binance">
                 <a className={router.pathname === "/trade/binance" ? "active" : ""}>binance</a>
+            </Link>
+            <Link href="/trade/korbit">
+                <a className={router.pathname === "/trade/korbit" ? "active" : ""}>korbit</a>
+            </Link>
+            <Link href="/myMoney">
+                <a className={router.pathname === "/myMoney" ? "active" : ""}>자산현황</a>
             </Link>
         </div>
         <style jsx>{`

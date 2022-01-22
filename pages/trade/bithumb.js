@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Seo from "../../Components/Seo";
 import Table from "../../Components/Table";
 import * as api from '../../Function/api';
 
@@ -23,7 +24,6 @@ export default function Bithumb(){
     // 실시간 변동
     useEffect(() => {
       const count = setInterval(() => {
-        console.log(1);
         getCoinDats();
       }, 3000);
 
@@ -32,6 +32,7 @@ export default function Bithumb(){
 
     return (
       <>
+        <Seo title="bithumb"/>
         <Table trade='bithumb' coinDatas={bithumbData} setCoinDatas={setBithumbData} originDatas={originDatas}/>
       </>
     )

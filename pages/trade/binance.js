@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Seo from "../../Components/Seo";
 import Table from "../../Components/Table";
 
 import * as api from "../../Function/api";
@@ -29,6 +30,7 @@ export default function Binance(){
 
     return (
       <>
+        <Seo title="binance"/>
         <Table trade='binance' coinDatas={binanceDatas} setCoinDatas={setBinanceDatas} originDatas={originDatas}/>
       </>
     )

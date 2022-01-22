@@ -59,7 +59,7 @@ export async function getUpbitDatas(){
 // 빗썸 데이터
 export async function getBithumbDatas(){
     const bithumbCoins = await (
-        await fetch('https://api.bithumb.com/public/ticker/ALL_KRW')
+        await fetch('/api/bithumb')
       ).json();
 
       let coins = [];
@@ -108,4 +108,28 @@ export async function getBinanceDatas(){
     })
 
     return binanceCoins;
+}
+
+// 코빗 데이터
+export async function getKorbitDatas(){
+  const korbitDatas = await (await fetch('/api/korbit')).json();
+
+  korbitDatas = Object.entries(korbitDatas);
+
+  let coins = [];
+
+
+  korbitDatas.forEach((coin) => {
+    coin[1].name = coin[0].slice(0,-4);
+    coin[1].ask = Number(coin[1].last);
+    coin[1].volume = Number(coin[1].volume);
+    coin[1].view_trade_volume = Math.round(coin[1].volume);
+    coins.push(coin[1]);
+  });
+
+  coins = coins.sort((a,b) => {
+    return b.volume - a.volume
+  })
+
+  return coins;
 }

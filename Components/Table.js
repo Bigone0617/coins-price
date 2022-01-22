@@ -23,6 +23,11 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
         tprice = 'askPrice';
         trange = 'priceChangePercent';
         tvolume = 'volume';
+    }else if (trade == "korbit"){
+        tname = 'name';
+        tprice = 'ask';
+        trange = 'changePercent';
+        tvolume = 'view_trade_volume';
     }
 
     // 정렬
@@ -106,7 +111,7 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
                         <td>{coin[tname]}</td>
                         <td>{coin[tprice]}{trade=='binance' ? 'BTC' : '원'}</td>
                         <td className={(coin[trange] < 0) ? "blue" : "red"}>{trade=='upbit' ? (coin[trange]*100).toFixed(2) : coin[trange]}%</td>
-                        <td>{trade=='binance' ? Number(coin[tvolume]).toFixed(2)+"BTC" : coin[tvolume]+"억"}</td>
+                        <td>{trade=='binance' ? Number(coin[tvolume]).toFixed(2)+"BTC" : coin[tvolume]+(trade =='korbit' ? "백만" : "억")}</td>
                       </tr>
                     ))}
                   </tbody>
