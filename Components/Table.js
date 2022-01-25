@@ -1,11 +1,18 @@
 import { useState } from "react";
 
 export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
+    // 오름차순, 내림차순 인지 toggle
     const [toggle, setToggle] = useState(false);
+    // 정렬을 눌렀는지 안눌렀는지
+    const [sort, setSort] = useState();
 
+    // 코인 이름
     let tname;
+    // 코인 가격
     let tprice;
+    // 어제 대비 상승률, 하락률
     let trange;
+    // 오늘 거래대금
     let tvolume;
 
     if(trade == 'upbit'){
@@ -30,8 +37,32 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
         tvolume = 'view_trade_volume';
     }
 
+    // 정렬을 눌렀을 경우 새로운 데이터가 들어와 렌더해도 정렬이 그대로 유지되게 하기 위해
+    if(sort){
+      if(sort == 'name'){
+        coinDatas = coinDatas.sort((a,b) => {
+        return toggle ? ((b[tname]<a[tname])?-1:(a[tname]==b[tname])?0:1) : ((a[tname]<b[tname])?-1:(a[tname]==b[tname])?0:1);
+        });
+      }else if(sort == 'price'){
+        coinDatas = coinDatas.sort((a,b) => {
+              return toggle ? b[tprice] - a[tprice] : a[tprice] - b[tprice];
+          });
+      }else if(sort == 'range'){
+        coinDatas = coinDatas.sort((a,b) => {
+              return toggle ? b[trange] - a[trange] : a[trange] - b[trange];
+          });
+      }else{
+        coinDatas = coinDatas.sort((a,b) => {
+              return toggle ? b[tvolume] - a[tvolume] : a[tvolume] - b[tvolume];
+          });
+      }
+      
+      setCoinDatas(coinDatas);
+    }
+
     // 정렬
-    const onClickToggleSort = (type, upbitData, setUpbitData, toggle, setToggle) => {
+    const onClickToggleSort = (type, coinDatas, setCoinDatas, toggle, setToggle) => {
+        // 버튼 스타일 바꾸기 위해서
         const buttonStyle = (idx, toggle) => {
             let nodes = event.target.parentNode.parentNode.childNodes;
             for(let i = 0; i < nodes.length; i++){
@@ -50,39 +81,44 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
             }
         } 
 
+        // 항목별 정렬
         if(type == 'name'){
-            upbitData = upbitData.sort((a,b) => {
+            coinDatas = coinDatas.sort((a,b) => {
             return toggle ? ((b[tname]<a[tname])?-1:(a[tname]==b[tname])?0:1) : ((a[tname]<b[tname])?-1:(a[tname]==b[tname])?0:1);
             });
+            setSort('name');
             buttonStyle(0, toggle);
         }else if(type == 'price'){
-            upbitData = upbitData.sort((a,b) => {
+            coinDatas = coinDatas.sort((a,b) => {
                 return toggle ? b[tprice] - a[tprice] : a[tprice] - b[tprice];
             });
+            setSort('price');
             buttonStyle(1, toggle);
         }else if(type == 'range'){
-            upbitData = upbitData.sort((a,b) => {
+            coinDatas = coinDatas.sort((a,b) => {
                 return toggle ? b[trange] - a[trange] : a[trange] - b[trange];
             });
+            setSort('range');
             buttonStyle(2, toggle);
         }else{
-            upbitData = upbitData.sort((a,b) => {
+            coinDatas = coinDatas.sort((a,b) => {
                 return toggle ? b[tvolume] - a[tvolume] : a[tvolume] - b[tvolume];
             });
+            setSort('volume');
             buttonStyle(3, toggle);
         }
         
-        setUpbitData(upbitData);
+        setCoinDatas(coinDatas);
         setToggle((prev) => !prev);
     }
     
     // 검색
-    const onChange = (originDatas, setUpbitData) => {
+    const onChange = (originDatas, setCoinDatas) => {
         const text = event.target.value;
         if(text){
-        setUpbitData(originDatas.filter((data) => data[tname].includes(text)))
+        setCoinDatas(originDatas.filter((data) => data[tname].includes(text)))
         }else{
-        setUpbitData(originDatas)
+        setCoinDatas(originDatas)
         }
     }
 

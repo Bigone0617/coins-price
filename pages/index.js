@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Seo from "../Components/Seo";
 import TopTen from "../Components/TopTen";
 import * as api from '../Function/api';
-import MyMoney from "./myMoney";
 
 export default function Home() {
   const [upbitData, setUpbitData] = useState();
@@ -50,7 +49,6 @@ export default function Home() {
   return(
     <>
       <Seo title="Home"/>
-      <MyMoney/>
       <div className="container">
         <div>
           {!upbitData && <h4>Loading...</h4>}
