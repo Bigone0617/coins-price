@@ -133,9 +133,9 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
         {
           coinDatas && <div className="container">
             <div className="innerContainer">
-            <div>
-              <input type="text" onChange={()=>onChange(originDatas, setCoinDatas)}/>
-            </div>
+              <div className="searchBox">
+                <input type="text" onChange={()=>onChange(originDatas, setCoinDatas)}/>
+              </div>
               <div>
                 <table>
                   <thead>
@@ -187,10 +187,29 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
           }
           td {
             padding-left : 10px;
-
           }
           th {
             padding-left : 20px;
+          }
+
+          @media screen and (max-width: 768px) {
+            .searchBox {
+              display: flex;
+              justify-content: space-around;
+              margin-top: 10px;
+            }
+            .searchBox input{
+              width: 300px;
+              max-width: 100%;
+              border-radius: 10px;
+            }
+            table{
+              table-layout: fixed;
+            }
+            td{
+              padding-left : 0px;
+              word-break: break-all;
+            }
           }
         `}</style>
       </div>

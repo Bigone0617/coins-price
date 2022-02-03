@@ -87,6 +87,13 @@ export default function TopTen({topTenDatas, trade}){
                 .korbit {
                     color : #1E293B;
                 }
+
+                @media screen and (max-width: 768px) {
+                    td {
+                        padding-left : 0px;
+                        word-break: break-all;
+                    }
+                }
             `}</style>
         </div>
 
