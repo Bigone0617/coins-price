@@ -119,6 +119,19 @@ export default function MyMoney(){
                         .text{
                             margin-left: 50px;
                         }
+
+                        @media screen and (max-width: 768px) {
+                            .chart{
+                                width: 90%;
+                                height: 90%;
+                                margin-bottom: 50px;
+                            }
+                            .text{
+                                margin-top: 10px;
+                                margin-left: 0px;
+                                text-align: center;
+                            }
+                        }
                     `}</style>
                 </>
                 ) : (
