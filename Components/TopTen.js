@@ -34,9 +34,9 @@ export default function TopTen({topTenDatas, trade}){
 
     return (
         <div className="container">
-            <h2>{trade}</h2>
+            <h2 className={`${trade}`}>{trade}</h2>
             <Link href={path}>
-                <a>view more</a>
+                <a className="more">view more</a>
             </Link>
             <table>
                 <thead>
@@ -71,6 +71,21 @@ export default function TopTen({topTenDatas, trade}){
                 }
                 .red {
                     color : red;
+                }
+                .more:hover {
+                    color : orange;
+                }
+                .upbit {
+                    color : #0C3F97;
+                }
+                .bithumb {
+                    color : #E6790F;
+                }
+                .binance {
+                    color : #F0B90B;
+                }
+                .korbit {
+                    color : #1E293B;
                 }
             `}</style>
         </div>

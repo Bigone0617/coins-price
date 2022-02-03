@@ -5,6 +5,8 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
     const [toggle, setToggle] = useState(false);
     // 정렬을 눌렀는지 안눌렀는지
     const [sort, setSort] = useState();
+    // 검색 중인지
+    const [isSearch, setIsSearch] = useState();
 
     // 코인 이름
     let tname;
@@ -36,7 +38,6 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
         trange = 'changePercent';
         tvolume = 'view_trade_volume';
     }
-
     // 정렬을 눌렀을 경우 새로운 데이터가 들어와 렌더해도 정렬이 그대로 유지되게 하기 위해
     if(sort){
       if(sort == 'name'){
@@ -56,9 +57,11 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
               return toggle ? b[tvolume] - a[tvolume] : a[tvolume] - b[tvolume];
           });
       }
-      
+
       setCoinDatas(coinDatas);
     }
+
+    
 
     // 정렬
     const onClickToggleSort = (type, coinDatas, setCoinDatas, toggle, setToggle) => {
@@ -116,9 +119,11 @@ export default function Table({trade, coinDatas, setCoinDatas, originDatas}){
     const onChange = (originDatas, setCoinDatas) => {
         const text = event.target.value;
         if(text){
-        setCoinDatas(originDatas.filter((data) => data[tname].includes(text)))
+          setCoinDatas(originDatas.filter((data) => data[tname].includes(text)));
+          setIsSearch(text);
         }else{
-        setCoinDatas(originDatas)
+          setCoinDatas(originDatas)
+          setIsSearch(false);
         }
     }
 

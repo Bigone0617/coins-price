@@ -73,6 +73,15 @@ export default function Home() {
             padding: 20px;
             gap: 20px;
           }
+
+          @media screen and (max-width: 768px) {
+            .container{
+              display: grid;
+              grid-template-columns: 1fr;
+              padding: 20px;
+              gap: 20px;
+            }
+        }
         `}</style>
       </div>
     </>
