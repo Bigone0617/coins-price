@@ -5,6 +5,8 @@ import Seo from '../Components/Seo';
 import InputKey from '../Components/InputKey';
 import * as api from '../Function/api';
 
+import UpbitApiInfo from '../Components/UpbitApiInfo';
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function MyMoney(){
@@ -18,6 +20,8 @@ export default function MyMoney(){
     const [moneys, setMoneys] = useState();
     // api 키를 저장 했는지
     const [haveKey, setHaveKey] = useState(false);
+    // 업비트 설명 열고 닫기
+    const [toggleUpbit, setToggleUpbit] = useState(false);
 
     // 내 자산 가져오기
     const getMyMoney = async() => {
@@ -85,7 +89,7 @@ export default function MyMoney(){
             <Seo title="MyMoney"/>
             {
                 haveKey ? (
-                    <>
+                    <div className='my_money_wrap'>
                         <div className='chart'>
                         {!myRealMoney &&
                         <div>Loding...</div>}
@@ -93,9 +97,7 @@ export default function MyMoney(){
                             myRealMoney && 
                             <>
                                 <InputKey haveKey={true}/>
-                                <Doughnut
-                                data={doughnut_data}
-                                />
+                                <Doughnut data={doughnut_data}/>
                                 <div className='text'>
                                     {`매수금액 : ${myMoney}원`}
                                     <br></br>
@@ -111,13 +113,17 @@ export default function MyMoney(){
                     </div>
                     
                     <style jsx>{`
+                        .my_money_wrap{
+                            text-align: center;
+                        }
                         .chart{
                             width: 500px;
                             height: 500px;
                             margin-bottom: 50px;
+                            display: inline-block;
                         }
                         .text{
-                            margin-left: 50px;
+                            text-align: center;
                         }
 
                         @media screen and (max-width: 768px) {
@@ -133,15 +139,50 @@ export default function MyMoney(){
                             }
                         }
                     `}</style>
-                </>
+                </div>
                 ) : (
                     <>
                         <div>
                             <InputKey haveKey={false}/>
-                            입력된 api키가 없습니다.
                             <br></br>
-                            * API키는 사용자의 브라우저 저장소에 저장이 됩니다. DB에 별도로 저장이 되지 않으니 걱정 안 하셔도 됩니다.
+                            <div className='api_info'>
+                                * API키는 사용자의 브라우저에 저장이 됩니다. 데이터 베이스에 별도로 저장이 되지 않으니 걱정 안 하셔도 됩니다.
+                            </div>
+                            <div>
+                                <div>
+                                    <div className='toggle_info' onClick={() => setToggleUpbit((prev) => !prev)}>
+                                        업비트 API KEY 발급 설명 {toggleUpbit ? '접기' : '펼치기'}
+                                    </div>
+                                    {
+                                        toggleUpbit ? (
+                                            <UpbitApiInfo/>
+                                        ) : (
+                                            <></>
+                                        )
+                                    }
+                                    <div className='toggle_info'>
+                                        <a href='https://www.bithumb.com/customer_support/info_guide?seq=1901&categorySeq=205' target='blank'>
+                                            빗썸 API Key 발급 설명 보기
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <style jsx>{`
+                            div{
+                                margin-left: 10px;
+                            }
+                            .api_info{
+                                color: blue;
+                            }
+                            .toggle_info{
+                                margin-top: 10px;
+                            }
+                            .toggle_info:hover{
+                                color: #F5AC1E;
+                                cursor: pointer;
+                            }
+                        `}</style>
                     </>
                 )
             }

@@ -96,7 +96,7 @@ export default function NavBar(){
                     font-size: 18px;
                 }
                 .active {
-                    color: tomato;
+                    color: #F5AC1E;
                 }
                 nav .nav_wrap {
                     display: flex;
